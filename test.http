@@ -1,0 +1,126 @@
+@baseURL = http://localhost:3000
+###
+
+# @name register
+POST {{baseURL}}/auth/register HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "Kamran Akmal",
+  "userName": "karmranakmal123",
+  "password": "12345678"
+}
+
+
+###
+# @name Login
+POST {{baseURL}}/auth/login HTTP/1.1
+Content-Type: application/json
+
+{
+  "userName": "user123",
+  "password": "12345678"
+}
+
+###
+@userToken = {{Login.response.body.token}}
+###
+
+# @name createTag
+POST {{baseURL}}/tag/ HTTP/1.1
+Content-Type: application/json
+Authorization: {{userToken}}
+
+{
+  "title": "freelancing"
+}
+
+###
+# @name allTags
+GET {{baseURL}}/tag/ HTTP/1.1
+
+###
+@tagId = {{allTags.response.body.0._id}}
+@tag2Id = {{allTags.response.body.1._id}}
+@tag3Id = {{allTags.response.body.2._id}}
+###
+
+# @name singleTag
+GET {{baseURL}}/tag/{{tagId}} HTTP/1.1
+###
+
+# @name updateTag
+PUT {{baseURL}}/tag/{{tagId}} HTTP/1.1
+Content-Type: application/json
+Authorization: {{userToken}}
+
+{
+  "title": "not javascript"
+}
+
+###
+
+DELETE {{baseURL}}/tag/{{tagId}} HTTP/1.1
+
+###
+
+# @name createQuestion
+POST {{baseURL}}/question/ HTTP/1.1
+Content-Type: application/json
+Authorization: {{userToken}}
+
+{
+  "title": "Question about Freelancing",
+  "details": "Suscipit inventore laboriosam magni repudiandae. Corrupti dicta esse animi commodi aliquam. Dolor ut nesciunt porro quasi corporis laboriosam non.",
+  "tags": [
+    "{{tag3Id}}"
+  ]
+}
+
+###
+
+# @name allQuestions
+GET {{baseURL}}/question HTTP/1.1
+
+###
+@questionId = {{allQuestions.response.body.0._id}}
+###
+@answerId = {{allQuestions.response.body.0.answers.0._id}}
+###
+
+# @name singleQuestions
+GET {{baseURL}}/question/{{questionId}} HTTP/1.1
+
+###
+# @name addViews
+PATCH {{baseURL}}/question/{{questionId}}/add-views HTTP/1.1
+
+###
+# @name answer
+
+POST {{baseURL}}/question/{{questionId}}/answer HTTP/1.1
+Content-Type: application/json
+Authorization: {{userToken}}
+
+{
+  "details": "Quisquam quisquam fuga ipsa praesentium. Adipisci eum a accusamus dolore reiciendis aperiam est aliquam. Autem aut iusto ut. Saepe saepe cum dolores error libero et id mollitia cumque. Voluptas consequatur dicta est et nemo praesentium."
+}
+
+###
+
+# @name singleAnswer
+GET {{baseURL}}/answer/{{answerId}} HTTP/1.1
+###
+
+PATCH {{baseURL}}/answer/{{answerId}}/like HTTP/1.1
+Authorization: {{userToken}}
+
+###
+# @name editAnswer
+PUT {{baseURL}}/answer/{{answerId}} HTTP/1.1
+Content-Type: application/json
+Authorization: {{userToken}}
+
+{
+  "details": "Eveniet eos doloribus rerum in cupiditate earum voluptatem fugit. Quibusdam facilis amet aut consequuntur tempora cupiditate. Velit et aliquid harum omnis porro tenetur. Praesentium minus culpa nesciunt corrupti. Modi vel sint ipsa odio vel commodi quidem maiores. Consequatur suscipit voluptatem molestias modi sed occaecati sed."
+}

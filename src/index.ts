@@ -2,6 +2,7 @@ import express from 'express'
 import mongoose from "mongoose"
 import { json } from "body-parser"
 import userInit from "./user/user.init"
+import authController from "./user/auth.controller";
 require("dotenv").config()
 
 const dbName = "qa"
@@ -22,6 +23,7 @@ db.then(() => {
   app.use(json())
   userInit()
 
+  app.use("/auth", authController)
   const port = 3000
   app.listen(port, () => {
     console.log(`Server started at http://localhost:${port}`)
