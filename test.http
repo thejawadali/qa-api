@@ -93,16 +93,3 @@ Authorization: {{userToken}}
 # @name singleAnswer
 GET {{baseURL}}/answer/{{answerId}} HTTP/1.1
 ###
-
-PATCH {{baseURL}}/answer/{{answerId}}/like HTTP/1.1
-Authorization: {{userToken}}
-
-###
-# @name editAnswer
-PUT {{baseURL}}/answer/{{answerId}} HTTP/1.1
-Content-Type: application/json
-Authorization: {{userToken}}
-
-{
-  "details": "Eveniet eos doloribus rerum in cupiditate earum voluptatem fugit. Quibusdam facilis amet aut consequuntur tempora cupiditate. Velit et aliquid harum omnis porro tenetur. Praesentium minus culpa nesciunt corrupti. Modi vel sint ipsa odio vel commodi quidem maiores. Consequatur suscipit voluptatem molestias modi sed occaecati sed."
-}

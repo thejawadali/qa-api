@@ -2,6 +2,7 @@ import { Router } from "express"
 import "express-async-errors"
 import { body, param } from "express-validator"
 import { toLower } from "lodash"
+import answerModel, { IAnswer } from "../answer/answer.model"
 import { authorizeByRole } from "../core/authorization"
 import { validationErrorChecker } from "../core/error-handler"
 import tagModel from "../tag/tag.model"
@@ -63,5 +64,36 @@ router.get(
     res.status(200).json(question)
   }
 )
+
+
+// answer the question
+router.post(
+  "/:questionId/answer",
+  [
+    param("questionId").exists().isMongoId(),
+    body("details").exists()
+  ],
+  validationErrorChecker,
+  authorizeByRole(Roles.User),
+  async (req, res) => {
+    const question = await questionModel.findOne({
+      _id: req.params.questionId
+    })
+    if (!question) {
+      return res.status(400).send("Question not found")
+    }
+    const answer = new answerModel({
+      details: req.body.details,
+      user: req.user._id,
+      questionId: question._id
+    } as IAnswer)
+
+    question.answers.push(answer._id)
+    await answer.save()
+    await question.save()
+    res.status(201).json(answer)
+  }
+)
+
 
 export default router
