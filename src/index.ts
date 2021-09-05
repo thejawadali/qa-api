@@ -3,6 +3,7 @@ import mongoose from "mongoose"
 import { json } from "body-parser"
 import userInit from "./user/user.init"
 import authController from "./user/auth.controller";
+import tagController from "./tag/tag.controller";
 import tagInit from "./tag/tag.init"
 require("dotenv").config()
 
@@ -26,6 +27,7 @@ db.then(() => {
   tagInit()
 
   app.use("/auth", authController)
+  app.use("/tag", tagController)
   const port = 3000
   app.listen(port, () => {
     console.log(`Server started at http://localhost:${port}`)
