@@ -5,6 +5,7 @@ import userInit from "./user/user.init"
 import authController from "./user/auth.controller";
 import tagController from "./tag/tag.controller";
 import questionController from "./question/question.controller";
+import answerController from "./answer/answer.controller";
 import tagInit from "./tag/tag.init"
 import questionInit from "./question/question.init"
 import answerInit from "./answer/answer.init"
@@ -34,6 +35,7 @@ db.then(() => {
   app.use("/auth", authController)
   app.use("/tag", tagController)
   app.use("/question", questionController)
+  app.use("/answer", answerController)
   const port = 3000
   app.listen(port, () => {
     console.log(`Server started at http://localhost:${port}`)
