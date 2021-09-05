@@ -76,9 +76,6 @@ GET {{baseURL}}/question HTTP/1.1
 # @name singleQuestions
 GET {{baseURL}}/question/{{questionId}} HTTP/1.1
 
-###
-# @name addViews
-PATCH {{baseURL}}/question/{{questionId}}/add-views HTTP/1.1
 
 ###
 # @name answer
