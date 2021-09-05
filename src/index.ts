@@ -7,6 +7,7 @@ import tagController from "./tag/tag.controller";
 import questionController from "./question/question.controller";
 import tagInit from "./tag/tag.init"
 import questionInit from "./question/question.init"
+import answerInit from "./answer/answer.init"
 require("dotenv").config()
 
 const dbName = "qa"
@@ -28,6 +29,7 @@ db.then(() => {
   userInit()
   tagInit()
   questionInit()
+  answerInit()
 
   app.use("/auth", authController)
   app.use("/tag", tagController)
