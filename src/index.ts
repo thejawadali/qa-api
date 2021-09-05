@@ -3,6 +3,7 @@ import mongoose from "mongoose"
 import { json } from "body-parser"
 import userInit from "./user/user.init"
 import authController from "./user/auth.controller";
+import tagInit from "./tag/tag.init"
 require("dotenv").config()
 
 const dbName = "qa"
@@ -22,6 +23,7 @@ db.then(() => {
   app.use("/uploads", express.static("uploads"))
   app.use(json())
   userInit()
+  tagInit()
 
   app.use("/auth", authController)
   const port = 3000
