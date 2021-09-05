@@ -1,6 +1,7 @@
 import * as mongoose from "mongoose"
 import autopopulate from "mongoose-autopopulate"
 import idValidator from "mongoose-id-validator"
+import answerModel, { IAnswer } from "../answer/answer.model"
 import mongooseSanitize from "../core/sanitize-schema"
 import tagModel, { ITag } from "../tag/tag.model"
 import userModel, { IUser } from "../user/user.model"
@@ -13,6 +14,7 @@ export interface IQuestion extends mongoose.Document {
   views: number
   tags: ITag | string
   user: IUser | string
+  answers: IAnswer[] | string[]
 }
 
 const schemaDef = new Schema(
@@ -36,6 +38,14 @@ const schemaDef = new Schema(
         autopopulate: {
           select: "title"
         }
+      }
+    ],
+    answers: [
+      {
+        type: Schema.Types.ObjectId,
+        default: null,
+        ref: answerModel.modelName,
+        autopopulate: true
       }
     ],
     user: {
