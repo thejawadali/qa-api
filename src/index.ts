@@ -1,9 +1,10 @@
 import express from 'express'
 import mongoose from "mongoose"
 import { json } from "body-parser"
+import userInit from "./user/user.init"
 require("dotenv").config()
 
-const dbName = "blogs"
+const dbName = "qa"
 const mongoURI = `mongodb://localhost:27017/${dbName}`
 const app = express()
 
@@ -19,10 +20,7 @@ db.then(() => {
   console.log("db connected")
   app.use("/uploads", express.static("uploads"))
   app.use(json())
-
-  app.get("/", (req, res) => {
-    res.send("asdfjk")
-  })
+  userInit()
 
   const port = 3000
   app.listen(port, () => {
