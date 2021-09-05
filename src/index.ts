@@ -1,5 +1,6 @@
 import express from 'express'
 import mongoose from "mongoose"
+import cors from "cors";
 import { json } from "body-parser"
 import userInit from "./user/user.init"
 import authController from "./user/auth.controller";
@@ -25,6 +26,7 @@ const db = mongoose.connect(mongoURI, {
 
 db.then(() => {
   console.log("db connected")
+  app.use(cors())
   app.use("/uploads", express.static("uploads"))
   app.use(json())
   userInit()
