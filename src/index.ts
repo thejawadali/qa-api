@@ -5,6 +5,7 @@ import userInit from "./user/user.init"
 import authController from "./user/auth.controller";
 import tagController from "./tag/tag.controller";
 import tagInit from "./tag/tag.init"
+import questionInit from "./question/question.init"
 require("dotenv").config()
 
 const dbName = "qa"
@@ -25,6 +26,7 @@ db.then(() => {
   app.use(json())
   userInit()
   tagInit()
+  questionInit()
 
   app.use("/auth", authController)
   app.use("/tag", tagController)
